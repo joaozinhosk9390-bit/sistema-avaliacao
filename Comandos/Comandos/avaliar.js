@@ -7,13 +7,13 @@ module.exports = {
     options: [
         {
           name: "vendedor",
-          description: "mencione o vendedor",
+          description: "Mencione o vendedor",
           type: 6,
           required: true,
         },
         {
             name: "avaliar",
-            description: "selecione de 1 estrela a 5 para a qualidade do produto ou serviço",
+            description: "Selecione de 1 estrela a 5 para a qualidade do produto ou serviço",
             type: 3,
             required: true,
             choices: [
@@ -26,7 +26,7 @@ module.exports = {
         },
         {
             name: "texto",
-            description: "descreva a sua avaliação",
+            description: "Descreva a sua avaliação",
             type: 3,
             required: true,
         },
@@ -36,32 +36,18 @@ module.exports = {
      * @param {Client} client
      * @param {ChatInputCommandInteraction} interaction
      */
-
     run: async (client, interaction) => {
 
         const { options, guild } = interaction;
         const vendedor = options.getUser("vendedor");
         const estrelas = options.getString("avaliar");
         const texto = options.getString("texto");
-    
-        const ID = "1095743502677188777"; // Channel onde sera enviado a avaliação
-        const Cargo = "1073397694451695727"; // Cargo de cliente 
-    
-        if (!interaction.member.roles.cache.has(Cargo)) {
-          return interaction.reply({
-            embeds: [
-                new EmbedBuilder()
-                  .setDescription(':x: Você não tem permissão para usar este comando')
-                  .setColor('Red'),
-              ],
-              ephemeral: true,
-          });
-        }
-    
+
+        const ID = "1095743502677188777"; // Canal onde será enviado a avaliação
+
         const embed = new EmbedBuilder()
-          .setAuthor({ name: guild.name, iconURL: guild.iconURL( { dynamic: true } ) })
-          .setTitle('Sistema de Feedback :star: ')
-          .setDescription('Digite **/avaliar** para enviar um feedback')
+          .setAuthor({ name: guild.name, iconURL: guild.iconURL({ dynamic: true }) })
+          .setTitle('Sistema de Feedback :star:')
           .addFields([
             {
               name: ':writing_hand: ┃ Feedback enviado por:',
@@ -84,15 +70,15 @@ module.exports = {
           .setThumbnail(guild.iconURL({ dynamic: true }))
           .setFooter({ text: `© ${guild.name} ┃ Desenvolvido por kn#9639`, iconURL: guild.iconURL() })
           .setTimestamp();
-    
+
         guild.channels.cache.get(ID).send({
           embeds: [embed],
         });
-    
+
         await interaction.reply({
           embeds: [
             new EmbedBuilder()
-              .setDescription(`A sua avaliaçao foi enviada con sucesso para o canal <#${ID}>, \n\n Caso tenha alguma dúvida nos contate por ticket [Clicando Aqui](https://discord.com/channels/977017524703076402/977030471064100884) \n\n Obrigado pela preferência :)`)
+              .setDescription(`A sua avaliação foi enviada com sucesso para o canal <#${ID}>, \n\nCaso tenha alguma dúvida nos contate por ticket [Clicando Aqui](https://discord.com/channels/977017524703076402/977030471064100884) \n\nObrigado pela preferência :)`)
               .setColor('Green'),
           ],
           ephemeral: true,
