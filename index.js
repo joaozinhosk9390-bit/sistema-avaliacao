@@ -1,7 +1,10 @@
 const Discord = require('discord.js')
 const { ActivityType } = require('discord.js');
 const config = require("./config.json")
-const client = new Discord.Client({ intents: 32767 });
+const client = new Discord.Client({
+  intents: [Discord.GatewayIntentBits.Guilds]
+});
+
 
 module.exports = client
 
@@ -27,5 +30,6 @@ client.on('ready', () => {
 client.slashCommands = new Discord.Collection()
 require('./handler')(client)
 client.login(process.env.TOKEN)
+
 
 
