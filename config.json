@@ -1,3 +1,55 @@
-{
-    "token":"seu token"
-}
+const { REST, Routes } = require('discord.js');
+
+const TOKEN = 'SEU_TOKEN_DO_BOT'; // MTQ0Mjk2Mzg4ODgxNDY4NjI3OA.GKgs6I.pwaqbN0MzmwvJkVr6AmYGYY2-9W8OXRJlrxkDo
+const CLIENT_ID = '1472538602473918548'; //MTE4MDM0NjE3MDY3ODE5NDE4NQ.Gl5Zw_.0n-7fYm7KxVDV26T23pHzYid-AxZhTB5w4NWkE
+const GUILD_ID = 'COLOQUE_ID_DO_SERVIDOR_AQUI'; // 1324444831258382488
+
+const commands = [
+    {
+        name: 'avaliar',
+        description: 'Avalia algo e envia para o canal',
+        options: [
+            {
+                name: 'vendedor',
+                description: 'Mencione o vendedor',
+                type: 6,
+                required: true
+            },
+            {
+                name: 'avaliar',
+                description: 'Selecione de 1 a 5 estrelas',
+                type: 3,
+                required: true,
+                choices: [
+                    { name: "⭐", value: "⭐" },
+                    { name: "⭐⭐", value: "⭐⭐" },
+                    { name: "⭐⭐⭐", value: "⭐⭐⭐" },
+                    { name: "⭐⭐⭐⭐", value: "⭐⭐⭐⭐" },
+                    { name: "⭐⭐⭐⭐⭐", value: "⭐⭐⭐⭐⭐" },
+                ]
+            },
+            {
+                name: 'texto',
+                description: 'Descreva a sua avaliação',
+                type: 3,
+                required: true
+            }
+        ],
+        default_permission: true // <- ESSENCIAL: libera pra qualquer usuário
+    }
+];
+
+const rest = new REST({ version: '10' }).setToken(TOKEN);
+
+(async () => {
+    try {
+        console.log('Registrando comando /avaliar...');
+        await rest.put(
+            Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+            { body: commands }
+        );
+        console.log('Comando /avaliar registrado!');
+    } catch (err) {
+        console.error(err);
+    }
+})();
