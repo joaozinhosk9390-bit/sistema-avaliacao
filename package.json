@@ -1,0 +1,14 @@
+{
+  "name": "sistema-avaliacao",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
